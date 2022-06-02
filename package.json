@@ -1,0 +1,22 @@
+{
+  "name": "db-comparison",
+  "version": "0.0.1",
+  "description": "I have not worked with neither cassandra or couchdb before so I am going to compare what it is like working with them compared to mongodb.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderczigler/db-comparison.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexanderczigler/db-comparison/issues"
+  },
+  "homepage": "https://github.com/alexanderczigler/db-comparison#readme",
+  "dependencies": {
+    "mongodb": "^4.6.0"
+  }
+}
