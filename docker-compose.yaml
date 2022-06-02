@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  cassandra:
+    image: cassandra:4
+    ports:
+      - 7000:7000
+      - 9042:9042
+  
+  couchdb:
+    image: couchdb:3
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=meowmeow
+    ports:
+      - 5984:5984
+
+  mongo:
+    image: mongo:5
+    ports:
+      - 27017:27017
