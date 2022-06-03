@@ -1,12 +1,12 @@
 const couchdbAdapter = require("./lib/couchdb-adapter");
 const mongoAdapter = require("./lib/mongo-adapter");
 
-couchdbAdapter
+const couchDb = couchdbAdapter
   .save({ happy: true })
   .then((data) => {
     console.log("CouchDB", "Save", data);
 
-    return couchdbAdapter.get(data._id);
+    return couchdbAdapter.get(data.id);
   })
   .then((data) => {
     console.log("CouchDB", "Get", data);
@@ -15,17 +15,24 @@ couchdbAdapter
   })
   .then((data) => {
     console.log("CouchDB", "Destroy", data);
-    process.exit(0);
   });
 
-mongoAdapter
+const mongo = mongoAdapter
   .save({ meow: "purr" })
   .then((data) => {
     console.log("MongoDB", "Save", data);
 
-    return mongoAdapter.get();
+    return mongoAdapter.get(data.insertedId);
   })
   .then((data) => {
-    console.log(data);
-    process.exit(0);
+    console.log("MongoDB", "get", data);
+
+    return mongoAdapter.deleteOne(data._id);
+  })
+  .then((data) => {
+    console.log("MongoDB", "delete", data);
   });
+
+Promise.all([couchDb, mongo]).then(() => {
+  process.exit(0);
+});
