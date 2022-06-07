@@ -18,7 +18,7 @@ const couchDb = couchdbAdapter
   });
 
 const mongo = mongoAdapter
-  .save({ meow: "purr" })
+  .save({ happy: true })
   .then((data) => {
     console.log("MongoDB", "Save", data);
 
