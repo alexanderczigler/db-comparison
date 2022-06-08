@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/alexanderczigler/db-comparison#readme",
   "dependencies": {
+    "cassandra-driver": "^4.6.3",
     "mongodb": "^4.6.0",
-    "nano": "^10.0.0"
+    "nano": "^10.0.0",
+    "uuid": "^8.3.2"
   }
 }

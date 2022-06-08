@@ -1,5 +1,22 @@
+const cassandraAdapter = require("./lib/cassandra-adapter");
 const couchdbAdapter = require("./lib/couchdb-adapter");
 const mongoAdapter = require("./lib/mongo-adapter");
+
+const cassandra = cassandraAdapter
+  .save({ happy: true })
+  .then((id) => {
+    console.log("Cassandra", "Save", id);
+
+    return cassandraAdapter.get(id);
+  })
+  .then((rabbit) => {
+    console.log("Cassandra", "Get", rabbit);
+
+    return cassandraAdapter.del(rabbit.id);
+  })
+  .then((rabbit) => {
+    console.log("Cassandra", "Del", rabbit);
+  });
 
 const couchDb = couchdbAdapter
   .save({ happy: true })
@@ -33,6 +50,6 @@ const mongo = mongoAdapter
     console.log("MongoDB", "delete", data);
   });
 
-Promise.all([couchDb, mongo]).then(() => {
+Promise.all([cassandra, couchDb, mongo]).then(() => {
   process.exit(0);
 });
