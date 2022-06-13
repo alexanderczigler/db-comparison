@@ -1,7 +1,7 @@
 {
   "name": "db-comparison",
   "version": "0.0.1",
-  "description": "I have not worked with neither cassandra or couchdb before so I am going to compare what it is like working with them compared to mongodb.",
+  "description": "I have not worked with neither cassandra or couchbase before so I am going to compare what it is like working with them compared to mongodb.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -18,8 +18,8 @@
   "homepage": "https://github.com/alexanderczigler/db-comparison#readme",
   "dependencies": {
     "cassandra-driver": "^4.6.3",
-    "mongodb": "^4.6.0",
-    "nano": "^10.0.0",
+    "couchbase": "^4.1.0",
+    "mongodb": "^4.7.0",
     "uuid": "^8.3.2"
   }
 }

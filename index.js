@@ -1,55 +1,46 @@
-const cassandraAdapter = require("./lib/cassandra-adapter");
-const couchdbAdapter = require("./lib/couchdb-adapter");
+const couchbaseAdapter = require("./lib/couchbase-adapter");
 const mongoAdapter = require("./lib/mongo-adapter");
 
-const cassandra = cassandraAdapter
-  .save({ happy: true })
+console.log(`Using adapter ${process.argv[2]}`);
+let adapter;
+
+const adapterName = process.argv[2];
+switch (adapterName) {
+  case "cassandra":
+    adapter = cassandraAdapter;
+    break;
+  case "couchbase":
+    adapter = couchbaseAdapter;
+    break;
+  case "mongo":
+    adapter = mongoAdapter;
+    break;
+}
+
+adapter
+  .create({ breed: "Persian Tabby" })
   .then((id) => {
-    console.log("Cassandra", "Save", id);
-
-    return cassandraAdapter.get(id);
+    return adapter.read(id);
   })
-  .then((rabbit) => {
-    console.log("Cassandra", "Get", rabbit);
+  .then((cat) => {
+    console.log("Cat", cat);
+    console.log();
 
-    return cassandraAdapter.del(rabbit.id);
+    cat.color = "Orange";
+    return adapter.update(cat.id, { breed: "Persian Tabby", color: "Orange" });
   })
-  .then((rabbit) => {
-    console.log("Cassandra", "Del", rabbit);
+  .then((cat) => {
+    return adapter.read(cat.id);
+  })
+  .then((cat) => {
+    console.log("Cat updated", cat);
+    console.log();
+
+    return adapter.delete(cat.id);
+  })
+  .then((result) => {
+    console.log("Deleted", result);
+    console.log();
+
+    process.exit(0);
   });
-
-const couchDb = couchdbAdapter
-  .save({ happy: true })
-  .then((data) => {
-    console.log("CouchDB", "Save", data);
-
-    return couchdbAdapter.get(data.id);
-  })
-  .then((data) => {
-    console.log("CouchDB", "Get", data);
-
-    return couchdbAdapter.destroy(data._id, data._rev);
-  })
-  .then((data) => {
-    console.log("CouchDB", "Destroy", data);
-  });
-
-const mongo = mongoAdapter
-  .save({ happy: true })
-  .then((data) => {
-    console.log("MongoDB", "Save", data);
-
-    return mongoAdapter.get(data.insertedId);
-  })
-  .then((data) => {
-    console.log("MongoDB", "get", data);
-
-    return mongoAdapter.deleteOne(data._id);
-  })
-  .then((data) => {
-    console.log("MongoDB", "delete", data);
-  });
-
-Promise.all([cassandra, couchDb, mongo]).then(() => {
-  process.exit(0);
-});

@@ -7,13 +7,11 @@ services:
       - 7000:7000
       - 9042:9042
   
-  couchdb:
-    image: couchdb:3
-    environment:
-      - COUCHDB_USER=admin
-      - COUCHDB_PASSWORD=meowmeow
+  couchbase:
+    image: couchbase
     ports:
-      - 5984:5984
+     - 8091-8094:8091-8094
+     - 11210:11210
 
   mongo:
     image: mongo:5
