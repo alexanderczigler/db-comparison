@@ -20,6 +20,6 @@
     "cassandra-driver": "^4.6.3",
     "couchbase": "^4.1.0",
     "mongodb": "^4.7.0",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   }
 }
